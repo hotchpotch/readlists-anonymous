@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Readlists::Anonymous::VERSION
   spec.authors       = ["Yuichi Tateno"]
   spec.email         = ["hotchpotch@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{Readlists API for anonymous lists.}
+  spec.description   = %q{Readlists API for anonymous lists.}
+  spec.homepage      = "https://github.com/hotchpotch/readlists-anonymous"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.5"
+  spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
 end
