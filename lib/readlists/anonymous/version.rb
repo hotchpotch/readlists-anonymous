@@ -1,5 +1,5 @@
 module Readlists
-  module Anonymous
+  class Anonymous
     VERSION = "0.0.1"
   end
 end
