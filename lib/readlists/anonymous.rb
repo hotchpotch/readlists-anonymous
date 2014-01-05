@@ -1,4 +1,6 @@
 require "readlists/anonymous/version"
+require 'net/http'
+require 'json'
 
 module Readlists
   class Anonymous
@@ -59,7 +61,11 @@ module Readlists
       @edit_id = JSON.parse(res.body)['edit_id']
     end
 
-    def url
+    def public_edit_url
+      "http://readlists.com/#{edit_id}/"
+    end
+
+    def share_url
       "http://readlists.com/#{id}/"
     end
 
@@ -90,7 +96,7 @@ module Readlists
       params = { "readlist" => DEFAULT_READLIST_PARAMS }.merge("article_url" => url)
       self.class.request(:post, entry_endpoint, params, headers)
     end
-    alias_method :append, :<<
+    alias_method :add, :<<
 
     def request(method, params = {}, headers = {})
       headers = { "Cookie" => cookie }
