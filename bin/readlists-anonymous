@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+
+require 'readlists/anonymous'
+require 'optparse'
+require 'uri'
+require 'rbconfig'
+
+options = {}
+optparse = OptionParser.new {|opts|
+  opts.banner = "Usage: readlists-anonymous [-t title] [-d description] http://example.com/?url1 http://example.com/?url2 [more url...]"
+
+  opts.on("-t title", "Set title") do |v|
+    options[:title] = v
+  end
+
+  opts.on("-d description", "Set Description") do |v|
+    options[:description] = v
+  end
+}
+optparse.parse!
+
+urls = ARGV.to_a
+if urls.size == 0
+  warn optparse.banner
+  exit 1
+end
+
+urls.each {|url| abort("URL scheme '#{url}' is invalid.") unless ['http', 'https'].include?(URI.parse(url).scheme) }
+
+readlists = Readlists::Anonymous.create
+puts "* Created anynymous readlists"
+puts "share-url: #{readlists.share_url}"
+puts "public-edit-url: #{readlists.public_edit_url}"
+
+readlists.title = options[:title] if options[:title]
+readlists.description = options[:description] if options[:description]
+
+urls.each do |url|
+  retried = false
+  begin
+    puts "Add #{url}"
+    readlists << url
+  rescue Readlists::Anonymous::RequestError => e
+    if retried
+      puts "* 2nd error.. ignore #{url}"
+    else
+      puts "* Error.. retry"
+      retried = true
+      retry
+    end
+  end
+end
+
+puts "* Created anynymous readlists"
+puts "share-url: #{readlists.share_url}"
+puts "public-edit-url: #{readlists.public_edit_url}"
+
+if RbConfig::CONFIG['host_os'] =~ /^darwin/
+  system 'open', readlists.public_edit_url
+end
+
