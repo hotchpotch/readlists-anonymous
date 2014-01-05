@@ -31,7 +31,7 @@ puts "public-edit-url: #{readlists.public_edit_url}"
 $ readlists-anonymous [-t title] [-d description] http://example.com/?url1 http://example.com/?url2 [more url...]
 ```
 
-source: [./bin/readlists-anonymous](./blob/master/bin/readlists-anonymous)
+source: [./bin/readlists-anonymous](https://github.com/hotchpotch/readlists-anonymous/blob/master/bin/readlists-anonymous)
 
 ## Installation
 
