@@ -6,7 +6,9 @@
 
 ### Ruby
 
-```
+```ruby
+require 'readlists/anonymous'
+
 readlists = Readlists::Anonymous.create
 readlists.title = title
 readlists.description = description
@@ -28,6 +30,8 @@ puts "public-edit-url: #{readlists.public_edit_url}"
 ```shell
 $ readlists-anonymous [-t title] [-d description] http://example.com/?url1 http://example.com/?url2 [more url...]
 ```
+
+source: [./bin/readlists-anonymous](./blob/master/bin/readlists-anonymous)
 
 ## Installation
 
